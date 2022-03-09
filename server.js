@@ -55,7 +55,7 @@ async function main() {
     html: "<b>Hello world has got to be the most boring thing to write as a devolper...</b>", // html body
   });
 
-  cron.schedule("1 * * * * *", () => {
+  cron.schedule("1 * * * *", () => {
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
