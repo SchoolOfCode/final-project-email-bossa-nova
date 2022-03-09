@@ -1,6 +1,7 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const app = express();
+const cron = require("node-cron");
 require("dotenv").config();
 
 const port = 3001;
@@ -40,26 +41,28 @@ async function main() {
     port: 587,
     secure: false, // upgrade later with STARTTLS
     auth: {
-      user: "bossanovasoc@gmail.com",
-      pass: "iamapassword4u",
+      user: process.env.EMAIL,
+      pass: process.env.WORD,
     },
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <bossanovasoc@gmail.com>', // sender address
-    to: "benmhcode@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
+    from: `"Bossa Nova" <{process.env.EMAIL}>`, // sender address
+    to: process.env.RECIPIENT, // list of receivers
+    subject: "This is the bossa nova test", // Subject line
     text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    html: "<b>Hello world has got to be the most boring thing to write as a devolper...</b>", // html body
   });
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  cron.schedule("1 * * * * *", () => {
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  });
 }
 
 main().catch(console.error);
