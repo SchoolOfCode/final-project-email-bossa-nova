@@ -9,16 +9,6 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-// let transporter = nodemailer.createTransport({
-//   host: "smtp.gmail.com",
-//   port: 587,
-//   secure: false, // upgrade later with STARTTLS
-//   auth: {
-//     user: "bossanovasoc@gmail.com",
-//     pass: "iamapassword4u",
-//   },
-// });
-
 // transporter.verify(function (error, success) {
 //   if (error) {
 //     console.log(error);
