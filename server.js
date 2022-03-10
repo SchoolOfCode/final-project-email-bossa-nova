@@ -2,7 +2,20 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const app = express();
 const cron = require("node-cron");
+const cors = require("cors");
 require("dotenv").config();
+
+app.use(express.json());
+app.use(cors());
+
+app.get("/", async (req, res) => {
+  res.json({ message: "hello" });
+});
+
+app.post("/", async (req, res) => {
+  console.log(req.body);
+  res.json({ body: req.body });
+});
 
 const port = 3001;
 app.listen(port, () => {
@@ -55,4 +68,4 @@ async function main() {
   });
 }
 
-main().catch(console.error);
+// main().catch(console.error);
